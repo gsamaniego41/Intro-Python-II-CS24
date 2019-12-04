@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -51,6 +52,3 @@ room['treasure'].s_to = room['narrow']
 # If the user enters "q", quit the game.
 
 # initial commit
-
-for r in room:
-    print(f'{r.name}, {r.desc}')
