@@ -19,6 +19,12 @@ class Room:
     def add_item(self, item):
         self.items.append(item)
 
+    def remove_item(self, item):
+        '''
+        Removes item from room after being picked up by player.
+        '''
+        self.items = []
+
     def __repr__(self):
         # __repr__ is for debugging and development
         return f'<Name: {self.name}, Description: {self.desc}>'

@@ -89,8 +89,6 @@ def play_game(name):
     if player.current_room == None:
         print(
             f"\n{exclamation1}\nDead End. No room there...\nStarting over. -_-\n{exclamation2}\n")
-        # location = input("Where would you like to go next? ")
-        # quit()
         player.current_room = room['outside']
 
     else:
@@ -119,8 +117,12 @@ def play_game(name):
                         print(f'\nPls select a valid command\n{options}\n')
                     elif pickup_item == 'y':
                         player.add_item(player.current_room.items[0])
+                        player.current_room.remove_item(
+                            player.current_room.items[0])
+
                 else:
-                    print(f"No items were found")
+                    print(
+                        f"\n{exclamation1}\nNo items were found\n{exclamation2}\n")
             else:
                 pass
 
