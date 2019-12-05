@@ -31,10 +31,11 @@ shield = Item('Shield', 'Shield made of vibranium.')
 zune = Item('Zune', 'To listen to phat beats while adventuring.')
 
 # Add items
-room['outside'].add_item(flashlight.name)
-room['foyer'].add_item(shield.name)
-room['outside'].add_item(shield.name)
-room['outside'].add_item(zune.name)
+
+room['outside'].add_item(flashlight)
+room['foyer'].add_item(sword)
+room['narrow'].add_item(shield)
+room['treasure'].add_item(zune)
 
 # Link rooms together
 
@@ -67,6 +68,7 @@ room['treasure'].s_to = room['narrow']
 # initial commit
 
 commands = ('n', 's', 'e', 'w', 'q')
+options = ('y', 'n')
 
 # Decorations
 dashes = '------------------'
@@ -75,8 +77,14 @@ exclamation1 = '!!!!!!!!!!!!!!!!!!!'
 exclamation2 = '¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡'
 
 
+def endgame():
+    print('\n>>>>> You quit the game. <<<<<\n')
+    quit()
+
+
 def play_game(name):
     global player
+    explore = ''
 
     if player.current_room == None:
         print(
@@ -88,11 +96,35 @@ def play_game(name):
     else:
         print(
             f'\nCurrent Room:\n{dashes}\nYou are at the {player.current_room}\n')
-        print(
-            f'Items ({len(player.current_room.items)}):\n{dashes}\n{player.current_room.items}\n')
         map = f'Directions:\n{dashes}\nNorth: {player.current_room.n_to}\n{dashes}\nSouth: {player.current_room.s_to}\n{dashes}\nEast: {player.current_room.e_to}\n{dashes}\nWest: {player.current_room.w_to}\n{dashes}\n'
         print(map)
 
+        # Explore the room
+
+        while explore not in options:
+            explore = input("Explore the room (y/n)? ")
+            if explore == 'q':
+                endgame()
+            elif explore not in options:
+                print(f'\nPls select a valid command\n{options}\n')
+            elif explore == "y":
+                if len(player.current_room.items) > 0:
+                    print(
+                        f"\nYou found this item: \n{player.current_room.items[0].name} - {player.current_room.items[0].desc}\n")
+                    pickup_item = input(
+                        "Pick it up (y/n)? ")
+                    if pickup_item == 'q':
+                        endgame()
+                    elif pickup_item not in options:
+                        print(f'\nPls select a valid command\n{options}\n')
+                    elif pickup_item == 'y':
+                        player.add_item(player.current_room.items[0])
+                else:
+                    print(f"No items were found")
+            else:
+                pass
+
+        # Move player
         location = input("Where would you like to go next? ")
 
         if location not in commands:
@@ -111,8 +143,7 @@ def play_game(name):
             player.current_room = player.current_room.w_to
 
         elif location == "q":
-            print('\n>>>>> You quit the game. <<<<<\n')
-            quit()
+            endgame()
 
 
 name = input('What\'s your name? ')
