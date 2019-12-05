@@ -14,6 +14,10 @@ class Room:
         self.s_to = None
         self.e_to = None
         self.w_to = None
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
 
     def __repr__(self):
         # __repr__ is for debugging and development

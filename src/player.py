@@ -6,3 +6,8 @@ class Player:
     def __init__(self, name):
         self.name = name
         self.current_room = None
+        self.inventory = []
+
+    def add_item(self, item):
+        self.inventory.append(item)
+        print(f'You picked up {item}')

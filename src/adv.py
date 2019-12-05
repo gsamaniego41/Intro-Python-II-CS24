@@ -23,6 +23,18 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# Items
+
+flashlight = Item('Flashlight', 'Lights up the path.')
+sword = Item('Sword', 'Liquid Sword from the Wu.')
+shield = Item('Shield', 'Shield made of vibranium.')
+zune = Item('Zune', 'To listen to phat beats while adventuring.')
+
+# Add items
+room['outside'].add_item(flashlight.name)
+room['foyer'].add_item(shield.name)
+room['outside'].add_item(shield.name)
+room['outside'].add_item(zune.name)
 
 # Link rooms together
 
@@ -59,19 +71,25 @@ commands = ('n', 's', 'e', 'w', 'q')
 # Decorations
 dashes = '------------------'
 stars = '***************'
+exclamation1 = '!!!!!!!!!!!!!!!!!!!'
+exclamation2 = '¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡'
 
 
 def play_game(name):
     global player
 
     if player.current_room == None:
-        print("Dead End. No room there...")
+        print(
+            f"\n{exclamation1}\nDead End. No room there...\nStarting over. -_-\n{exclamation2}\n")
         # location = input("Where would you like to go next? ")
-        quit()
+        # quit()
+        player.current_room = room['outside']
 
     else:
         print(
             f'\nCurrent Room:\n{dashes}\nYou are at the {player.current_room}\n')
+        print(
+            f'Items ({len(player.current_room.items)}):\n{dashes}\n{player.current_room.items}\n')
         map = f'Directions:\n{dashes}\nNorth: {player.current_room.n_to}\n{dashes}\nSouth: {player.current_room.s_to}\n{dashes}\nEast: {player.current_room.e_to}\n{dashes}\nWest: {player.current_room.w_to}\n{dashes}\n'
         print(map)
 
