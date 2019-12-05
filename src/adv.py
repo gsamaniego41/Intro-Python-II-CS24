@@ -52,3 +52,55 @@ room['treasure'].s_to = room['narrow']
 # If the user enters "q", quit the game.
 
 # initial commit
+
+commands = ('n', 's', 'e', 'w', 'q')
+
+# Decorations
+dashes = '------------------'
+stars = '***************'
+
+
+def play_game(name):
+    global player
+
+    if player.current_room == None:
+        print("Dead End. No room there...")
+        # location = input("Where would you like to go next? ")
+        quit()
+
+    else:
+        print(
+            f'\nCurrent Room:\n{dashes}\nYou are at the {player.current_room}\n')
+        map = f'Directions:\n{dashes}\nNorth: {player.current_room.n_to}\n{dashes}\nSouth: {player.current_room.s_to}\n{dashes}\nEast: {player.current_room.e_to}\n{dashes}\nWest: {player.current_room.w_to}\n{dashes}\n'
+        print(map)
+
+        location = input("Where would you like to go next? ")
+
+        if location not in commands:
+            print(f'\nPls select a valid command\n{commands}\n')
+
+        elif location == "n":
+            player.current_room = player.current_room.n_to
+
+        elif location == "s":
+            player.current_room = player.current_room.s_to
+
+        elif location == "e":
+            player.current_room = player.current_room.e_to
+
+        elif location == "w":
+            player.current_room = player.current_room.w_to
+
+        elif location == "q":
+            print('\n>>>>> You quit the game. <<<<<\n')
+            quit()
+
+
+name = input('What\'s your name? ')
+player = Player(name)
+player.current_room = room['outside']
+print(f'\n{stars}\nWelcome {name}!\n{stars}\n')
+
+
+while True:
+    play_game(name)

@@ -16,9 +16,9 @@ class Room:
         self.w_to = None
 
     def __repr__(self):
-        # __repr__ is for debuggin and development
-        return f'Name: {self.name}, Description: {self.desc}'
+        # __repr__ is for debugging and development
+        return f'<Name: {self.name}, Description: {self.desc}>'
 
     def __str__(self):
         # __str__ is for end user
-        return f'You\'re in {self.name} - {self.desc}'
+        return f'{self.name} - {self.desc}'
